@@ -1,0 +1,54 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 16px;
+  margin: 0;
+}
+
+p {
+  margin-bottom: 24px;
+}
+
+.content {
+  margin: 40px auto;
+  padding: 0 24px;
+  max-width: 800px;
+}
+
+.inline-flow {
+  padding: 40px 0;
+}
+.inline-flow.-coupons {
+  background: #FBCB07;
+}
+.inline-flow.-sweeps .inline-flow__container {
+  max-width: 480px;
+}
+.inline-flow.-sweeps .ui-flow__block.-cancel {
+  display: none;
+}
+.inline-flow.-sweeps .ui-flow__block.-button {
+  width: 100%;
+}
+.inline-flow__container {
+  background: #FFF;
+  margin: 0 auto;
+  max-width: 400px;
+  padding: 24px;
+}
+@media (min-width: 540px) {
+  .inline-flow__container {
+    padding: 40px;
+  }
+}
+
+/*# sourceMappingURL=index.css.map */

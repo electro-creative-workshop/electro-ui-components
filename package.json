@@ -1,0 +1,35 @@
+{
+    "name": "@electro/electro-ui-components",
+    "version": "1.0.0",
+    "exports": {
+        "./flow": "./src/flow/index",
+        "./modal": "./src/modal/index",
+        "./track": "./src/track/index"
+    },
+    "sideEffects": false,
+    "scripts": {
+        "build": "webpack --config webpack.dist.config.js",
+        "dev": "npm run script & npm run style & npm run serve",
+        "script": "webpack --config webpack.build.config.js",
+        "serve": "npx webpack serve --config webpack.build.config.js",
+        "style": "sass --watch demo/src/index.scss:demo/public/dist/index.css"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.16.7",
+        "@babel/plugin-transform-react-jsx": "^7.17.12",
+        "@babel/preset-env": "^7.16.7",
+        "@babel/preset-react": "^7.16.7",
+        "@preact/compat": "^17.0.3",
+        "@svgr/webpack": "^6.2.1",
+        "babel-loader": "^8.2.3",
+        "css-loader": "^6.5.1",
+        "file-loader": "^6.2.0",
+        "preact": "^10.6.4",
+        "sass": "^1.52.1",
+        "sass-loader": "^13.0.0",
+        "style-loader": "^3.3.1",
+        "webpack": "^5.72.1",
+        "webpack-cli": "^4.9.1",
+        "webpack-dev-server": "^4.9.2"
+    }
+}

@@ -1,0 +1,14 @@
+.electro-flow-articles {
+	display: flex;
+    gap: 16px;
+
+    &__image {
+        display: block;
+        margin-bottom: 8px;
+
+        > img {
+            height: auto;
+            width: 100%;
+        }
+    }
+}

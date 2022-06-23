@@ -1,0 +1,49 @@
+#------------------------------------
+	# Application
+#------------------------------------
+
+/node_modules/
+
+
+
+#------------------------------------
+	# Tools
+#------------------------------------
+
+*.esproj
+*.sublime-*
+.bundle
+.idea/
+.phpstorm.meta.php
+.project
+.settings/
+.tmproj
+.vscode/
+_ide_helper.php
+browserstack.js
+
+
+#------------------------------------
+	# System
+#------------------------------------
+
+*.diff
+*.err
+*.log
+*.orig
+*.rej
+*.swo
+*.swp
+*.vi
+.cache
+.DS_Store
+.tmp
+error_log
+Thumbs.db
+
+
+#------------------------------------
+	# Gitkeep
+#------------------------------------
+
+!.gitkeep

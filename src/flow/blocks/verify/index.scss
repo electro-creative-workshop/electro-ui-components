@@ -1,0 +1,18 @@
+.ui-flow-verify {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    margin-top: 16px;
+
+    &__digit {
+        height: 56px;
+        font-size: 30px;
+        text-align: center;
+    }
+
+    &__resend {
+        color: var(--brand-color);
+        cursor: pointer;
+        text-decoration: underline;
+    }
+}

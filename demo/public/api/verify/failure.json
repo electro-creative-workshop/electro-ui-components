@@ -1,0 +1,12 @@
+{
+    "status": 100,
+    "message": "submission failed",
+    "data": {
+        "errors": [
+            {
+                "code": 102,
+                "message": "Unable to process submission"
+            }
+        ]
+    }
+}

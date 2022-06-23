@@ -1,0 +1,46 @@
+.ui-flow-button {
+    background: var(--brand-color);
+    border-radius: var(--input-border-radius);
+    color: #FFF;
+    cursor: pointer;
+    height: 48px;
+    margin-top: 16px;
+    padding: 0 24px;
+    transition: background-color, border-color, color;
+    transition-duration: var(--transition-duration);
+    user-select: none;
+    width: 100%;
+
+    &:hover {
+        background: var(--brand-color-hover);
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &:active {
+        background: var(--brand-color-active);
+    }
+
+    &:disabled {
+        background: #EEE;
+        color: #555;
+    }
+
+    &.-bordered {
+        background: #FFF;
+        border: 2px solid var(--brand-color);
+        color: var(--brand-color);
+
+        &:hover {
+            border-color: var(--brand-color-hover);
+            color: var(--brand-color-hover);
+        }
+
+        &:active {
+            border-color: var(--brand-color-active);
+            color: var(--brand-color-active);
+        }
+    }
+}

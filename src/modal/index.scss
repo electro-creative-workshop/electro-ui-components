@@ -1,0 +1,206 @@
+body.-ui-modal-is-cropped {
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+.ui-modal {
+    --border-radius: 4px;
+    --brand-color: #555;
+    --brand-color-hover: #444;
+    --brand-color-active: #666;
+    --mask-color: rgba(0, 0, 0, 0.5);
+    --transition-duration: 0.15s;
+
+    @keyframes fade {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    align-items: center;
+    animation: fade var(--transition-duration);
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    left: 0;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 3000;
+
+    &[hidden] {
+        display: none;
+    }
+
+    &__container {
+        background: #FFF;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        max-height: 100dvh;
+        max-height: 100vh;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+        z-index: 3100;
+
+        &.-is-cropped {
+            overflow: hidden;
+        }
+
+        @media (min-width: 540px) {
+            border-radius: var(--border-radius);
+            height: auto;
+            max-height: calc(100dvh - 48px);
+            max-height: calc(100vh - 48px);
+            max-width: 400px;
+        }
+    }
+
+    &__inner {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        overflow: auto;
+    }
+
+    &__close {
+        display: flex;
+        justify-content: right;
+        padding: 8px 8px 8px 8px;
+        user-select: none;
+
+        &-icon {
+            cursor: pointer;
+            padding: 8px;
+            width: 40px;
+
+            path {
+                fill: var(--brand-color);
+                transition: fill var(--transition-duration);
+            }
+
+            &:hover {
+                path {
+                    fill: var(--brand-color-hover);
+                }
+            }
+
+            &:active {
+                path {
+                    fill: var(--brand-color-active);
+                }
+            }
+        }
+    }
+
+    &__content {
+        height: 100%;
+        padding: 0 24px 32px 24px;
+        position: relative;
+
+        @media (min-width: 540px) {
+            padding: 0 40px 40px 40px;
+        }
+    }
+
+    &__mask {
+        background: var(--mask-color);
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 3000;
+    }
+
+    &-confirm {
+        background: #FFF;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: center;
+        left: 0;
+        padding: 0 24px;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 10;
+
+        @media (min-width: 540px) {
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+
+        &__message {
+            line-height: 1.45;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        &__actions {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 8px;
+        }
+
+        &__button {
+            background: var(--brand-color);
+            border-radius: var(--border-radius);
+            color: #FFF;
+            height: 48px;
+            padding: 0 24px;
+            transition: background-color, border-color, color;
+            transition-duration: var(--transition-duration);
+            user-select: none;
+            width: calc(50% - 8px);
+
+            &:hover {
+                background: var(--brand-color-hover);
+            }
+
+            &:focus {
+                outline: none;
+            }
+
+            &:active {
+                background: var(--brand-color-active);
+            }
+
+            &.-bordered {
+                background: #FFF;
+                border: 2px solid var(--brand-color);
+                color: var(--brand-color);
+
+                &:hover {
+                    border-color: var(--brand-color-hover);
+                    color: var(--brand-color-hover);
+                }
+
+                &:active {
+                    border-color: var(--brand-color-active);
+                    color: var(--brand-color-active);
+                }
+            }
+        }
+    }
+
+    &-embed {
+        height: 100%;
+
+        &__frame {
+            border: none;
+            height: 100%;
+            width: 100%;
+        }
+    }
+}

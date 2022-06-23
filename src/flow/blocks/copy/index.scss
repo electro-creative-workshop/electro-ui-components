@@ -1,0 +1,19 @@
+.ui-flow-copy {
+    line-height: 1.45;
+    margin-bottom: 0;
+    width: 100%;
+
+    a {
+        color: var(--brand-color);
+        text-decoration: underline;
+        transition: color var(--transition-duration);
+
+        &:hover {
+            color: var(--brand-color-hover);
+        }
+
+        &:active {
+            color: var(--brand-color-active);
+        }
+    }
+}

@@ -1,0 +1,55 @@
+.ui-flow-checkbox {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    margin-bottom: 0;
+    user-select: none;
+
+    &:hover .ui-flow-checkbox__toggle {
+        border-color: var(--input-border-color-hover);
+    }
+
+    &__check {
+        margin-right: 12px;
+        margin-top: 2px;
+    }
+
+    &__input {
+        display: none;
+
+        &:checked + .ui-flow-checkbox__toggle {
+            background: var(--brand-color);
+            border-color: var(--brand-color);
+
+            .ui-flow-checkbox__toggle-icon {
+                 opacity: 1;
+            }
+        }
+    }
+
+    &__toggle {
+        align-items: center;
+        display: flex;
+        height: 28px;
+        justify-content: center;
+        padding: 0;
+        transition-duration: var(--transition-duration);
+        transition-property: background-color, border-color, color;
+        width: 28px;
+
+        &-icon {
+            opacity: 0;
+            transition: opacity var(--transition-duration);
+            width: 16px;
+
+            path {
+                fill: #FFF;
+            }
+        }
+    }
+
+    &__label {
+        font-size: 16px;
+        line-height: 1.3;
+    }
+}

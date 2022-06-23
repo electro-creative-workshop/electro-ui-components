@@ -1,0 +1,154 @@
+{
+    "header": [
+        {
+            "type": "image",
+            "src": "/img/logo.svg",
+            "center": true
+        }
+    ],
+    "steps": [
+        {
+            "id": "user",
+            "blocks": [
+                {
+                    "type": "heading",
+                    "value": "Lorem ipsum dolor sit amet",
+                    "center": true
+                },
+                {
+                    "type": "copy",
+                    "value": "Quisque consectetur ornare risus. Donec pellentesque semper suscipit."
+                },
+                {
+                    "type": "text",
+                    "name": "first_name",
+                    "placeholder": "First name",
+                    "split": true,
+                    "rules": {
+                        "required": true
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "last_name",
+                    "placeholder": "Last name",
+                    "split": true,
+                    "rules": {
+                        "required": true
+                    }
+                },
+                {
+                    "type": "email",
+                    "name": "email",
+                    "placeholder": "Email address",
+                    "rules": {
+                        "required": true
+                    }
+                },
+                {
+                    "type": "copy",
+                    "value": "By continuing, I am acknowledging that I have read and agree to the <a href='#'>Terms of Use</a> and <a href='#'>Privacy Policy</a>.",
+                    "modifierClass": "-disclaimer"
+                },
+                {
+                    "type": "button",
+                    "label": "Continue",
+                    "action": "next"
+                }
+            ]
+        },
+        {
+            "id": "purchase",
+            "blocks": [
+                {
+                    "type": "heading",
+                    "value": "Have you purchased a Clorox® cleaning product in the past 12 months?"
+                },
+                {
+                    "type": "tags",
+                    "name": "types",
+                    "options": {
+                        "yes": "Yes",
+                        "no": "No"
+                    }
+                },
+                {
+                    "type": "copy",
+                    "value": "Select all types that apply"
+                },
+                {
+                    "type": "button",
+                    "label": "Continue",
+                    "action": "next"
+                }
+            ]
+        },
+        {
+            "id": "use",
+            "blocks": [
+                {
+                    "type": "heading",
+                    "value": "Which types of cleaning products do you like to use?"
+                },
+                {
+                    "type": "tags",
+                    "name": "types",
+                    "multiple": true,
+                    "options": {
+                        "wipes": "Wipes",
+                        "spray_aerosol": "Spray / Aerosol",
+                        "bleach": "Bleach",
+                        "toilet_bowl_cleaner": "Toilet Bowl Cleaner",
+                        "stain_remover": "Stain Remover",
+                        "floor_cleaner": "Floor Cleaner",
+                        "natural": "Natural",
+                        "other": "Other"
+                    }
+                },
+                {
+                    "type": "copy",
+                    "value": "Select all types that apply"
+                },
+                {
+                    "type": "button",
+                    "label": "Continue",
+                    "action": "next"
+                }
+            ]
+        },
+        {
+            "id": "success",
+            "blocks": [
+                {
+                    "type": "heading",
+                    "value": "Thanks for subscribing!"
+                },
+                {
+                    "type": "copy",
+                    "value": "Stay tuned for exclusive Clorox updates and household hacks. In the meantime, here are a couple of cleaning tips to get you started:"
+                },
+                {
+                    "type": "articles",
+                    "posts": [
+                        {
+                            "url": "https://www.clorox.com/learn/topics/laundry-tips/",
+                            "image": "https://www.clorox.com/wp-content/uploads/2021/10/laundry-tips.jpg",
+                            "title": "Tips for Doing Laundry Like a Pro"
+                        },
+                        {
+                            "url": "https://www.clorox.com/learn/topics/how-to-disinfect/",
+                            "image": "https://www.clorox.com/wp-content/uploads/2021/10/how-to-disinfect.jpg",
+                            "title": "How to Disinfect Laundry, Surfaces, Fabrics, and More"
+                        }
+                    ]
+                },
+                {
+                    "type": "button",
+                    "label": "See all tips and tricks",
+                    "action": "redirect",
+                    "url": "https://www.clorox.com/learn"
+                }
+            ]
+        }
+    ]
+}
