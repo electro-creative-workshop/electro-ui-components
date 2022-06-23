@@ -2,11 +2,10 @@
     "name": "@electro/electro-ui-components",
     "version": "1.0.0",
     "exports": {
-        "./flow": "./src/flow/index",
-        "./modal": "./src/modal/index",
-        "./track": "./src/track/index"
+        "./flow": "./dist/ui-flow.js",
+        "./modal": "./dist/ui-modal.js",
+        "./track": "./dist/ui-track.js"
     },
-    "sideEffects": false,
     "scripts": {
         "build": "webpack --config webpack.dist.config.js",
         "dev": "npm run script & npm run style & npm run serve",

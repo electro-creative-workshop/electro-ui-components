@@ -1,4 +1,5 @@
 module.exports = {
+    devtool: 'source-map',
     resolve: {
         extensions: [
             '.js',
@@ -17,8 +18,7 @@ module.exports = {
                             [
                                 '@babel/plugin-transform-react-jsx',
                                 {
-                                    runtime: 'automatic',
-                                    importSource: 'react'
+                                    runtime: 'automatic'
                                 }
                             ]
                         ],

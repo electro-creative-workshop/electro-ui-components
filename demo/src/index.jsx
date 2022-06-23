@@ -2,26 +2,23 @@ if (process.env.NODE_ENV === 'development') {
 	require('preact/debug');
 }
 
-import React, { useState } from 'react';
+import React from 'react';
 import { render } from 'react-dom';
 
-import Flow from '@electro/electro-ui-components/flow';
-import Modal from '@electro/electro-ui-components/modal';
+import Flow from '../../src/flow';
+import Modal from '../../src/modal';
 
 import Articles from './blocks/articles';
 
 document.getElementById('flow')
 	.addEventListener('click', () => {
 		const Demo = () => {
-			const [error, setError] = useState(null);
-
 			return (
 				<Modal
 					id='coupons'
 					modifierClass='-coupons'
 					component={<Flow
 						id='coupons'
-						error={error}
 						source='/api/flows/config.json'
 						onSuccess={data => {
 							console.log(data);

@@ -25,7 +25,10 @@ module.exports = {
     },
     output: {
         filename: 'ui-[name].js',
-        libraryTarget: 'umd',
+        library: {
+            name: 'electro-ui-components',
+            type: 'umd'
+        },
         path: path.resolve(__dirname, 'dist')
     },
     optimization: {
