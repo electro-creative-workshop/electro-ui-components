@@ -52,7 +52,9 @@ document.getElementById('component')
 document.getElementById('video')
 	.addEventListener('click', () => {
 		render(<Modal
-			videoId='u4k3KEGgFDQ'
+			video={{
+				id: 'u4k3KEGgFDQ'
+			}}
 			modifierClass='-video'
 		/>, document.body.appendChild(document.createElement('div')));
 	});
@@ -60,7 +62,9 @@ document.getElementById('video')
 document.getElementById('iframe')
 	.addEventListener('click', () => {
 		render(<Modal
-			iframe='frame.html'
+			iframe={{
+				url: 'frame.html'
+			}}
 			confirmClose={true}
 			modifierClass='-iframe'
 			translation={{
