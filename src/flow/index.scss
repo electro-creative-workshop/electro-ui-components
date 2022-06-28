@@ -23,6 +23,7 @@
         position: absolute;
         top: 0;
         width: 100%;
+        z-index: 10;
 
         @keyframes loading {
             0% {

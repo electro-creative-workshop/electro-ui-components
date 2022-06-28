@@ -42,6 +42,7 @@ const Modal = props => {
             activeElement = document.activeElement;
         } else if (activeElement) {
             activeElement.focus();
+            ref.current.remove();
         }
 
         Track.send('modal' + (opened ? 'Open' : 'Close'), {
@@ -113,13 +114,13 @@ const Modal = props => {
         if (props.iframe) {
             return (
                 <div className="ui-modal-embed">
-                    <iframe src={props.iframe} className="ui-modal-embed__frame" />
+                    <iframe src={props.iframe.url} className="ui-modal-embed__frame" />
                 </div>
             );
         }
 
-        if (props.videoId) {
-            const src = `https://www.youtube-nocookie.com/embed/${props.videoId}?enablejsapi=1&autoplay=1&rel=0&cc_load_policy=1`;
+        if (props.video) {
+            const src = `https://www.youtube-nocookie.com/embed/${props.video.id}?enablejsapi=1&autoplay=1&rel=0&cc_load_policy=1`;
 
             return (
                 <div className="ui-modal-embed">
