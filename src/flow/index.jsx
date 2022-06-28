@@ -53,24 +53,54 @@ const Flow = props => {
         ...props.blocks
     };
 
+    /**
+     * Initialize flow with either object or remote JSON
+     */
     useEffect(() => {
-        if (props.source) {
+        const source = props.source;
+
+        if (! source) {
+            return;
+        }
+
+        if (typeof source === 'string') {
             setLoading(true);
 
-            fetch(props.source)
+            fetch(source)
                 .then(response => response.json())
                 .then(data => {
-                    setHeader(data.header);
-                    setSteps(data.steps);
+                    configure(data);
                     setLoading(false);
                 });
+
+            return;
         }
+
+        configure(source);
     }, []);
 
+    /**
+     * Listen and apply error state
+     */
     useEffect(() => {
         setError(props.error);
     }, [props.error]);
 
+    /**
+     * Apply flow configuration
+     *
+     * @param {Object} data
+     */
+    const configure = data => {
+        setHeader(data.header);
+        setSteps(data.steps);
+    };
+
+    /**
+     * Navigate to step number
+     *
+     * @param {Number} step
+     */
     const navigate = step => {
         setStep(step);
 
@@ -87,14 +117,26 @@ const Flow = props => {
         }
     };
 
+    /**
+     * Return to previous step
+     */
     const back = () => {
         navigate(step - 1);
     };
 
+    /**
+     * Proceed to next step
+     */
     const next = () => {
         navigate(step + 1);
     };
 
+    /**
+     * Check form validity and merge values into store
+     *
+     * @param {Event} e
+     * @returns {(false|Object)}
+     */
     const validate = e => {
         e.preventDefault();
 
@@ -114,20 +156,24 @@ const Flow = props => {
             return el;
         }, {});
 
-        setValues(prev => ({
-            ...prev,
+        const post = {
+            ...values,
             ...data
-        }));
+        };
+
+        setValues(post);
 
         requestAnimationFrame(() => {
             el.reportValidity();
         });
 
-        console.log(values);
-
-        return valid;
+        return valid ?
+            post : false;
     };
 
+    /**
+     * Actions available to buttons
+     */
     const actions = {
         back: () => {
             if (props.onStep) {
@@ -158,6 +204,8 @@ const Flow = props => {
             }
         },
         submit: (e, config) => {
+            const post = validate(e);
+
             if (! validate(e)) {
                 return;
             }
@@ -165,9 +213,15 @@ const Flow = props => {
             if (config.target) {
                 setLoading(true);
 
+                let formData = new FormData();
+
+                for (let [name, value] of Object.entries(post)) {
+                    formData.append(name, JSON.stringify(value));
+                }
+
                 fetch(config.target, {
                     method: 'POST',
-                    body: JSON.stringify(values)
+                    body: formData
                 })
                     .then(response => response.json())
                     .then(response => {
