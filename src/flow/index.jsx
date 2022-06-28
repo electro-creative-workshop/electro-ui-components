@@ -215,9 +215,15 @@ const Flow = props => {
 
                 let formData = new FormData();
 
-                for (let [name, value] of Object.entries(post)) {
-                    formData.append(name, JSON.stringify(value));
-                }
+                Object.entries(post).forEach(([name, value]) => {
+                    if (value && Array.isArray(value)) {
+                        Object.entries(value).forEach(([key, selection]) => {
+                            formData.append(`${name}[${key}]`, selection);
+                        });
+                    } else {
+                        formData.append(name, value === null ? '' : value);
+                    }
+                });
 
                 fetch(config.target, {
                     method: 'POST',
@@ -248,7 +254,7 @@ const Flow = props => {
             }
 
             if (step < steps.length) {
-                actions.next();
+                actions.next(e);
             }
         }
     };
