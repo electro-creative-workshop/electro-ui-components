@@ -112,7 +112,7 @@ const Flow = props => {
             }
         });
 
-        if (flow.current.scrollIntoViewIfNeeded) {
+        if (flow.current && flow.current.scrollIntoViewIfNeeded) {
             flow.current.scrollIntoViewIfNeeded();
         }
     };
@@ -188,7 +188,7 @@ const Flow = props => {
             }
         },
         next: e => {
-            if (! validate(e)) {
+            if (e && !validate(e)) {
                 return;
             }
 
@@ -225,36 +225,57 @@ const Flow = props => {
                     }
                 });
 
+                // clear any old errors before submit
+                setError(null);
+
                 fetch(config.target, {
                     method: 'POST',
                     body: formData
                 })
+                    .then(response => {
+                        // http errors
+                        if (!response.ok) {
+                            console.error(response);
+                            throw(response.status + ' ' + response.statusText);
+                        }
+                        return response;
+                    })
                     .then(response => response.json())
                     .then(response => {
                         const data = response.data;
 
                         setLoading(false);
 
-                        if (response.status) {
-                            setError(data.errors[0].message);
+                        // bad rest call path vs error during call
+                        if (response.status || data.status) {
+                            let errorMessage = response.message;
+                            if (data.errors && data.errors.length) {
+                                errorMessage = data.errors[0].message;
+                            }
+                            setError(errorMessage);
 
                             if (props.onFailure) {
-                                props.onFailure(data);
+                                props.onFailure(response);
                             }
 
                             return;
                         }
 
-                        setError(null);
-
                         if (props.onSuccess) {
                             props.onSuccess(data);
                         }
-                    });
-            }
 
-            if (step < steps.length) {
-                actions.next(e);
+                        if (step < steps.length) {
+                            actions.next();
+                        }
+                    })
+                    .catch(err => {
+                        setLoading(false);
+                        setError(err.toString());
+                        if (props.onFailure) {
+                            props.onFailure(err);
+                        }
+                    });
             }
         }
     };

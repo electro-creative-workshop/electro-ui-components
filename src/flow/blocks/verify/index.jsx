@@ -58,16 +58,18 @@ const Verify = props => {
     };
 
     const send = () => {
+        let formData = new FormData();
+        formData.append('email', props.values.emailAddress);
         fetch(props.target, {
             method: 'POST',
-            body: JSON.stringify({
-                email: props.values.email
-            })
+            body: formData
         })
             .then(response => response.json())
+            /*
             .then(data => {
                 setConsumerId(data.data.encrypted_consumer_id);
             });
+             */
     };
 
     const resend = () => {
@@ -128,8 +130,7 @@ const Verify = props => {
 
             <Resend />
 
-            <input type="hidden" name="verification_code" value={code} />
-            <input type="hidden" name="encrypted_consumer_id" value={consumerId} />
+            <input type="hidden" name="pc_verify" value={code} />
         </div>
     );
 }
