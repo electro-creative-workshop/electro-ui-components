@@ -1,18 +1,18 @@
 import React from 'react';
 
-import Alert from '../img/alert.svg';
+import Icon from '../img/alert.svg';
 
-const Error = props => {
+const Alert = props => {
     if (! props.message) {
         return null;
     }
 
     return (
         <div className="ui-flow__error">
-            <Alert className="ui-flow__error-icon" />
+            <Icon className="ui-flow__error-icon" />
             <span className="ui-flow__error-message">{props.message}</span>
         </div>
     );
 }
 
-export default Error;
+export default Alert;

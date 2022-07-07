@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './index.scss';
-import Caret from './img/caret.svg';
+import Icon from './img/caret.svg';
 
 const Select = props => {
     const baseClass = 'ui-flow-select';
@@ -19,7 +19,7 @@ const Select = props => {
             <select
                 name={props.name}
                 className={`ui-flow-element ${baseClass}__input`}
-                {...props.rules}
+                {...props.attributes}
             >
                 <Placeholder />
 
@@ -28,7 +28,7 @@ const Select = props => {
                 )}
             </select>
 
-            <Caret className={`${baseClass}__icon`} />
+            <Icon className={`${baseClass}__icon`} />
         </div>
     );
 }

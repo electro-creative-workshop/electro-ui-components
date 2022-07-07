@@ -1,22 +1,48 @@
-import React, { createRef, useEffect, useState } from 'react';
+import React, { createRef, memo, useEffect, useState } from 'react';
 import * as Track from '@electro/electro-ui-components/track';
 
 import Confirm from './components/confirm';
 
 import './index.scss';
-import CloseIcon from './img/close.svg';
+import Icon from './img/close.svg';
 
 const body = document.getElementsByTagName('body')[0];
 
 let scrollPosition = 0;
 let activeElement;
 
+const Content = memo(props => {
+    if (props.component) {
+        return props.component;
+    }
+
+    if (props.iframe) {
+        return (
+            <div className="ui-modal-embed">
+                <iframe src={props.iframe.url} className="ui-modal-embed__frame" />
+            </div>
+        );
+    }
+
+    if (props.video) {
+        const src = `https://www.youtube-nocookie.com/embed/${props.video.id}?enablejsapi=1&autoplay=1&rel=0&cc_load_policy=1`;
+
+        return (
+            <div className="ui-modal-embed">
+                <iframe src={src} className="ui-modal-embed__frame" />
+            </div>
+        );
+    }
+
+    return null;
+}, () => true);
+
 const Modal = props => {
-    const [opened, setOpened] = useState(props.isOpen);
     const [confirm, setConfirm] = useState(false);
+    const [opened, setOpened] = useState(props.isOpen);
 
     const bodyCropped = '-ui-modal-is-cropped';
-    const ref = createRef();
+    const wrapper = createRef();
 
     let translation = {
         cancel: 'No',
@@ -42,7 +68,7 @@ const Modal = props => {
             activeElement = document.activeElement;
         } else if (activeElement) {
             activeElement.focus();
-            ref.current.remove();
+            wrapper.current.remove();
         }
 
         Track.send('modal' + (opened ? 'Open' : 'Close'), {
@@ -106,38 +132,12 @@ const Modal = props => {
         close();
     };
 
-    const Content = () => {
-        if (props.component) {
-            return props.component;
-        }
-
-        if (props.iframe) {
-            return (
-                <div className="ui-modal-embed">
-                    <iframe src={props.iframe.url} className="ui-modal-embed__frame" />
-                </div>
-            );
-        }
-
-        if (props.video) {
-            const src = `https://www.youtube-nocookie.com/embed/${props.video.id}?enablejsapi=1&autoplay=1&rel=0&cc_load_policy=1`;
-
-            return (
-                <div className="ui-modal-embed">
-                    <iframe src={src} className="ui-modal-embed__frame" />
-                </div>
-            );
-        }
-
-        return null;
-    };
-
     return (
-        <div className={'ui-modal ' + (props.modifierClass || '')} {...props.attributes} hidden={! opened} ref={ref}>
+        <div className={'ui-modal ' + (props.modifierClass || '')} {...props.attributes} hidden={! opened} ref={wrapper}>
             <div className="ui-modal__container">
                 <div className="ui-modal__inner">
                     <div className="ui-modal__close">
-                        <CloseIcon
+                        <Icon
                             className="ui-modal__close-icon"
                             aria-label={translation.close}
                             onClick={check}
@@ -145,18 +145,22 @@ const Modal = props => {
                     </div>
 
                     <div className="ui-modal__content">
-                        <Content />
+                        <Content {...props} />
                     </div>
                 </div>
 
-                 <Confirm
-                     hidden={! confirm}
-                     cancel={() => {
-                         setConfirm(false);
-                     }}
-                     confirm={close}
-                     translation={translation}
-                 />
+                <Confirm
+                    hidden={! confirm}
+                    onCancel={() => {
+                        setConfirm(false);
+
+                        if (props.onConfirmCancel) {
+                            props.onConfirmCancel();
+                        }
+                    }}
+                    onConfirm={close}
+                    translation={translation}
+                />
             </div>
 
             <div className="ui-modal__mask" onClick={check}></div>

@@ -5,8 +5,16 @@ import './index.scss';
 const Verify = props => {
     const baseClass = 'ui-flow-verify';
 
+    const translation = {
+        error: 'Error requesting code',
+        instructions: 'Check your email for a 4-digit confirmation code to',
+        receipt: 'Didn\'t receive a code?',
+        resend: 'Click to resend',
+        sent: 'We\'ve emailed you a new code.',
+        ...props.translation
+    };
+
     const [code, setCode] = useState();
-    const [consumerId, setConsumerId] = useState(props.values.consumerId);
     const [sent, setSent] = useState(false);
 
     const inputs = [...Array(4)].map(() => createRef());
@@ -25,11 +33,19 @@ const Verify = props => {
         setCode(value);
     };
 
+    const format = e => {
+        e.target.value = e.target.value.replace(/^\D/g, '');
+    };
+
     const focus = e => {
         e.target.select();
     };
 
     const advance = e => {
+        if (isNaN(e.key)) {
+            return;
+        }
+
         const index = Number(e.target.dataset.index);
 
         if (index < 3) {
@@ -55,35 +71,54 @@ const Verify = props => {
         });
 
         change();
+
+        inputs[digits.length - 1].current.focus();
     };
 
-    const send = () => {
+    const send = fn => {
         let formData = new FormData();
+
         formData.append('email', props.values.emailAddress);
+
         fetch(props.target, {
             method: 'POST',
             body: formData
         })
+            .then(response => {
+                if (! response.ok) {
+                    throw new Error(translation.error);
+                }
+
+                return response;
+            })
             .then(response => response.json())
-            /*
-            .then(data => {
-                setConsumerId(data.data.encrypted_consumer_id);
+            .then(response => {
+                const data = response.data;
+
+                // Extract error message
+                if (response.status || data.status) {
+                    let error = response.message;
+
+                    if (data.errors && data.errors.length) {
+                        error = data.errors[0].message;
+                    }
+
+                    throw new Error(error);
+                }
+
+                if (fn) {
+                    fn();
+                }
+            })
+            .catch(error => {
+                props.setError(error.message);
             });
-             */
     };
 
     const resend = () => {
-        setSent(true);
-
-        send();
-    };
-
-    const translation = {
-        instructions: 'Check your email for a 4-digit confirmation code to',
-        receipt: 'Didn\'t receive a code?',
-        resend: 'Click to resend',
-        sent: 'We\'ve emailed you a new code.',
-        ...props.translation
+        send(() => {
+            setSent(true);
+        });
     };
 
     const Resend = () => {
@@ -109,13 +144,12 @@ const Verify = props => {
             <div className={baseClass}>
                 {[...Array(4)].map((digit, index) => {
                     return <input
-                        type="number"
-                        min={0}
-                        max={9}
-                        maxLength={1}
+                        type="text"
                         data-index={index}
                         className={`ui-flow-element ui-flow-text -number ${baseClass}__digit`}
+                        maxLength={1}
                         onFocus={focus}
+                        onInput={format}
                         onKeyUp={advance}
                         onPaste={paste}
                         ref={inputs[index]}

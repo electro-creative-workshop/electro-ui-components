@@ -6,6 +6,7 @@ const Image = props => {
             src={props.src}
             alt={props.alt}
             className="ui-flow-image"
+            {...props.attributes}
         />
     );
 }
