@@ -1,7 +1,7 @@
 import React, { createRef, useEffect, useState } from 'react';
 import * as Track from '@electro/electro-ui-components/track';
 
-import Error from './components/error';
+import Alert from './components/alert';
 import Header from './components/header';
 import Loading from './components/loading';
 import Step from './components/step';
@@ -134,12 +134,9 @@ const Flow = props => {
     /**
      * Check form validity and merge values into store
      *
-     * @param {Event} e
      * @returns {(false|Object)}
      */
-    const validate = e => {
-        e.preventDefault();
-
+    const validate = () => {
         const el = form.current;
         const valid = el.checkValidity();
         const formData = new FormData(el);
@@ -187,8 +184,8 @@ const Flow = props => {
                 props.onCancel();
             }
         },
-        next: e => {
-            if (e && !validate(e)) {
+        next: () => {
+            if (! validate()) {
                 return;
             }
 
@@ -204,79 +201,75 @@ const Flow = props => {
             }
         },
         submit: (e, config) => {
-            const post = validate(e);
+            if (e) {
+                e.preventDefault();
+            }
 
-            if (! validate(e)) {
+            const post = validate();
+
+            if (! post || ! config.target) {
                 return;
             }
 
-            if (config.target) {
-                setLoading(true);
+            setError(null);
+            setLoading(true);
 
-                let formData = new FormData();
+            let formData = new FormData();
 
-                Object.entries(post).forEach(([name, value]) => {
-                    if (value && Array.isArray(value)) {
-                        Object.entries(value).forEach(([key, selection]) => {
-                            formData.append(`${name}[${key}]`, selection);
-                        });
-                    } else {
-                        formData.append(name, value === null ? '' : value);
+            Object.entries(post).forEach(([name, value]) => {
+                if (value && Array.isArray(value)) {
+                    Object.entries(value).forEach(([key, selection]) => {
+                        formData.append(`${name}[${key}]`, selection);
+                    });
+                } else {
+                    formData.append(name, value === null ? '' : value);
+                }
+            });
+
+            fetch(config.target, {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (! response.ok) {
+                        throw new Error('Error submitting form');
+                    }
+
+                    return response;
+                })
+                .then(response => response.json())
+                .then(response => {
+                    const data = response.data;
+
+                    // Extract error message
+                    if (response.status || data.status) {
+                        let error = response.message;
+
+                        if (data.errors && data.errors.length) {
+                            error = data.errors[0].message;
+                        }
+
+                        throw new Error(error);
+                    }
+
+                    setLoading(false);
+
+                    if (props.onSuccess) {
+                        props.onSuccess(data);
+                    }
+
+                    if (step < steps.length) {
+                        actions.next();
+                    }
+                })
+                .catch(error => {
+                    setError(error.message);
+                    setLoading(false);
+
+                    if (props.onFailure) {
+                        props.onFailure(error);
                     }
                 });
-
-                // clear any old errors before submit
-                setError(null);
-
-                fetch(config.target, {
-                    method: 'POST',
-                    body: formData
-                })
-                    .then(response => {
-                        // http errors
-                        if (!response.ok) {
-                            console.error(response);
-                            throw(response.status + ' ' + response.statusText);
-                        }
-                        return response;
-                    })
-                    .then(response => response.json())
-                    .then(response => {
-                        const data = response.data;
-
-                        setLoading(false);
-
-                        // bad rest call path vs error during call
-                        if (response.status || data.status) {
-                            let errorMessage = response.message;
-                            if (data.errors && data.errors.length) {
-                                errorMessage = data.errors[0].message;
-                            }
-                            setError(errorMessage);
-
-                            if (props.onFailure) {
-                                props.onFailure(response);
-                            }
-
-                            return;
-                        }
-
-                        if (props.onSuccess) {
-                            props.onSuccess(data);
-                        }
-
-                        if (step < steps.length) {
-                            actions.next();
-                        }
-                    })
-                    .catch(err => {
-                        setLoading(false);
-                        setError(err.toString());
-                        if (props.onFailure) {
-                            props.onFailure(err);
-                        }
-                    });
-            }
         }
     };
 
@@ -287,7 +280,7 @@ const Flow = props => {
                 types={types}
             />
 
-            <Error message={error} />
+            <Alert message={error} />
             <Loading active={loading} />
 
             <form className="ui-flow__steps" ref={form}>
@@ -297,6 +290,7 @@ const Flow = props => {
                         blocks={config.blocks}
                         current={step}
                         position={index + 1}
+                        setError={setError}
                         step={step}
                         types={types}
                         values={values}

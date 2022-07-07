@@ -3,7 +3,11 @@
         {
             "type": "image",
             "src": "/img/logo.svg",
-            "center": true
+            "center": true,
+            "attributes": {
+                "width": 96,
+                "height": 56
+            }
         }
     ],
     "steps": [
@@ -24,7 +28,7 @@
                     "name": "first_name",
                     "placeholder": "First name",
                     "split": true,
-                    "rules": {
+                    "attributes": {
                         "required": true
                     }
                 },
@@ -33,7 +37,7 @@
                     "name": "last_name",
                     "placeholder": "Last name",
                     "split": true,
-                    "rules": {
+                    "attributes": {
                         "required": true
                     }
                 },
@@ -41,7 +45,7 @@
                     "type": "email",
                     "name": "email",
                     "placeholder": "Email address",
-                    "rules": {
+                    "attributes": {
                         "required": true
                     }
                 },

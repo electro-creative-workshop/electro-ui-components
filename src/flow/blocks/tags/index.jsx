@@ -18,7 +18,7 @@ const Tags = props => {
                         value={value}
                         checked={!! values.includes(value)}
                         className={`${baseClass}__input`}
-                        {...props.rules}
+                        {...props.attributes}
                     />
 
                     <span className={`ui-flow-element ${baseClass}__label`}>{label}</span>

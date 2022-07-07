@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './index.scss';
-import Check from './img/check.svg';
+import Icon from './img/check.svg';
 
 const Checkbox = props => {
     const baseClass = 'ui-flow-checkbox';
@@ -15,11 +15,11 @@ const Checkbox = props => {
                     value={props.value || 'on'}
                     checked={props.checked}
                     className={`${baseClass}__input`}
-                    {...props.rules}
+                    {...props.attributes}
                 />
 
                 <div className={`ui-flow-element ${baseClass}__toggle`}>
-                    <Check className={`${baseClass}__toggle-icon`} />
+                    <Icon className={`${baseClass}__toggle-icon`} />
                 </div>
             </div>
 

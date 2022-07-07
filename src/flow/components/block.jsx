@@ -8,8 +8,8 @@ const Block = props => {
     }
 
     props = {
+        attributes: {},
         modifierClass: '',
-        rules: {},
         ...props
     };
 

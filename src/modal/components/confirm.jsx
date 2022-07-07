@@ -14,14 +14,14 @@ const Confirm = props => {
             <div className="ui-modal-confirm__actions">
                 <button
                     className="ui-modal-confirm__button -bordered"
-                    onClick={props.cancel}
+                    onClick={props.onCancel}
                 >
                     {props.translation.cancel}
                 </button>
 
                 <button
                     className="ui-modal-confirm__button"
-                    onClick={props.confirm}
+                    onClick={props.onConfirm}
                 >
                     {props.translation.confirm}
                 </button>
