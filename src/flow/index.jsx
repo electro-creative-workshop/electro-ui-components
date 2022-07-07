@@ -102,10 +102,14 @@ const Flow = props => {
      * @param {Number} step
      */
     const navigate = step => {
+        if (props.onStep) {
+            props.onStep(step);
+        }
+
         setStep(step);
 
         Track.send('flowNavigate', {
-            label: steps[step - 1].ref || '',
+            label: steps[step - 1].id || '',
             value: step,
             context: {
                 flow: props.id || ''
@@ -173,10 +177,6 @@ const Flow = props => {
      */
     const actions = {
         back: () => {
-            if (props.onStep) {
-                props.onStep(step);
-            }
-
             back();
         },
         cancel: () => {
@@ -187,10 +187,6 @@ const Flow = props => {
         next: () => {
             if (! validate()) {
                 return;
-            }
-
-            if (props.onStep) {
-                props.onStep(step);
             }
 
             next();
@@ -259,7 +255,7 @@ const Flow = props => {
                     }
 
                     if (step < steps.length) {
-                        actions.next();
+                        next();
                     }
                 })
                 .catch(error => {

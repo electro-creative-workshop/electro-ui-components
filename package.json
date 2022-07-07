@@ -1,6 +1,6 @@
 {
     "name": "@electro/electro-ui-components",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "exports": {
         "./flow": "./dist/ui-flow.js",
         "./modal": "./dist/ui-modal.js",
@@ -8,7 +8,8 @@
     },
     "scripts": {
         "build": "webpack --config webpack.prod.js",
-        "dev": "npm run style & npm run serve",
+        "dev": "npm run style & npm run script & npm run serve",
+        "script": "webpack --config webpack.dev.js",
         "serve": "npx webpack serve --config webpack.dev.js",
         "style": "sass --watch demo/src/index.scss:demo/public/dist/index.css"
     },
