@@ -8,6 +8,7 @@ const Verify = props => {
     const translation = {
         error: 'Error requesting code',
         instructions: 'Check your email for a 4-digit confirmation code to',
+        label: 'Confirmation digit',
         receipt: 'Didn\'t receive a code?',
         resend: 'Click to resend',
         sent: 'We\'ve emailed you a new code.',
@@ -148,6 +149,7 @@ const Verify = props => {
                         data-index={index}
                         className={`ui-flow-element ui-flow-text -number ${baseClass}__digit`}
                         maxLength={1}
+                        aria-label={`${translation.label} ${index + 1}`}
                         onFocus={focus}
                         onInput={format}
                         onKeyUp={advance}

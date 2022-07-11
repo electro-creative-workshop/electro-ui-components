@@ -19,6 +19,7 @@ const Select = props => {
             <select
                 name={props.name}
                 className={`ui-flow-element ${baseClass}__input`}
+                aria-label={props.placeholder}
                 {...props.attributes}
             >
                 <Placeholder />

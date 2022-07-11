@@ -4,7 +4,7 @@ const Image = props => {
     return (
         <img
             src={props.src}
-            alt={props.alt}
+            alt={props.alt || ''}
             className="ui-flow-image"
             {...props.attributes}
         />
