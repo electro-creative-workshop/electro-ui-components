@@ -10,6 +10,7 @@ const Text = props => {
             value={props.value}
             placeholder={props.placeholder}
             className={`ui-flow-element ui-flow-text -${props.type}`}
+            aria-label={props.placeholder}
             {...props.attributes}
         />
     );

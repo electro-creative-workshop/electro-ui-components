@@ -9,6 +9,7 @@ const Textarea = props => {
             value={props.value}
             placeholder={props.placeholder}
             className={`ui-flow-element ui-flow-textarea`}
+            aria-label={props.placeholder}
             {...props.attributes}
         />
     );

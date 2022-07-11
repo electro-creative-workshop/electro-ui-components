@@ -450,7 +450,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var Image = function Image(props) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", _objectSpread({
     src: props.src,
-    alt: props.alt,
+    alt: props.alt || '',
     className: "ui-flow-image"
   }, props.attributes));
 };
@@ -518,7 +518,8 @@ var Select = function Select(props) {
     className: baseClass,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", _objectSpread(_objectSpread({
       name: props.name,
-      className: "ui-flow-element ".concat(baseClass, "__input")
+      className: "ui-flow-element ".concat(baseClass, "__input"),
+      "aria-label": props.placeholder
     }, props.attributes), {}, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Placeholder, {}), Object.entries(props.options).map(function (_ref) {
         var _ref2 = _slicedToArray(_ref, 2),
@@ -639,7 +640,8 @@ var Text = function Text(props) {
     name: props.name,
     value: props.value,
     placeholder: props.placeholder,
-    className: "ui-flow-element ui-flow-text -".concat(props.type)
+    className: "ui-flow-element ui-flow-text -".concat(props.type),
+    "aria-label": props.placeholder
   }, props.attributes));
 };
 
@@ -676,7 +678,8 @@ var Textarea = function Textarea(props) {
     name: props.name,
     value: props.value,
     placeholder: props.placeholder,
-    className: "ui-flow-element ui-flow-textarea"
+    className: "ui-flow-element ui-flow-textarea",
+    "aria-label": props.placeholder
   }, props.attributes));
 };
 
@@ -735,6 +738,7 @@ var Verify = function Verify(props) {
   var translation = _objectSpread({
     error: 'Error requesting code',
     instructions: 'Check your email for a 4-digit confirmation code to',
+    label: 'Confirmation digit',
     receipt: 'Didn\'t receive a code?',
     resend: 'Click to resend',
     sent: 'We\'ve emailed you a new code.'
@@ -876,6 +880,7 @@ var Verify = function Verify(props) {
           "data-index": index,
           className: "ui-flow-element ui-flow-text -number ".concat(baseClass, "__digit"),
           maxLength: 1,
+          "aria-label": "".concat(translation.label, " ").concat(index + 1),
           onFocus: focus,
           onInput: format,
           onKeyUp: advance,
