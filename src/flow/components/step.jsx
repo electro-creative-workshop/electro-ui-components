@@ -7,7 +7,7 @@ const Step = props => {
     }
 
     return (
-        <div className="ui-flow__step">
+        <div className={`ui-flow__step -${props.id}`}>
             {props.blocks.map(config =>
                 <Block
                     {...props}
