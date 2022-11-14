@@ -8,7 +8,7 @@ const Textarea = props => {
             name={props.name}
             value={props.value}
             placeholder={props.placeholder}
-            className={`ui-flow-element ui-flow-textarea`}
+            className="ui-flow-element ui-flow-textarea"
             aria-label={props.placeholder}
             {...props.attributes}
         />

@@ -283,6 +283,7 @@ const Flow = props => {
                 {steps.map((config, index) =>
                     <Step
                         actions={actions}
+                        id={config.id}
                         blocks={config.blocks}
                         current={step}
                         position={index + 1}
