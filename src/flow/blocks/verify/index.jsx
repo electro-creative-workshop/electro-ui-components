@@ -7,7 +7,7 @@ const Verify = props => {
 
     const translation = {
         error: 'Error requesting code',
-        instructions: 'Check your email for a 4-digit confirmation code to',
+        instructions: 'Check your email for a 4-digit confirmation code.',
         label: 'Confirmation digit',
         receipt: 'Didn\'t receive a code?',
         resend: 'Click to resend',
@@ -139,7 +139,7 @@ const Verify = props => {
     return (
         <div>
             <p className="ui-flow-copy">
-                {translation.instructions} {props.values.email}.
+                {translation.instructions}
             </p>
 
             <div className={baseClass}>
