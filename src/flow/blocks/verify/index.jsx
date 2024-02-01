@@ -126,7 +126,7 @@ const Verify = props => {
         if (! sent) {
             return (
                 <p className="ui-flow-copy">
-                    {translation.receipt} <span className={`${baseClass}__resend`} role="button" onClick={resend}>{translation.resend}</span>
+                    {translation.receipt} <span className={`${baseClass}__resend`} role="button" onClick={resend}>{translation.resend}.</span>
                 </p>
             );
         }
