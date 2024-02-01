@@ -9,8 +9,8 @@ const Verify = props => {
         error: 'Error requesting code',
         instructions: 'Check your email for a 4-digit confirmation code.',
         label: 'Confirmation digit',
-        receipt: 'Didn\'t receive a code?',
-        resend: 'Click to resend',
+        receipt: 'If you don\'t receive a code after 2 minutes,',
+        resend: 'click to resend',
         sent: 'We\'ve emailed you a new code.',
         ...props.translation
     };

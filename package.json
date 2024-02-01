@@ -1,6 +1,6 @@
 {
     "name": "@electro/electro-ui-components",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "exports": {
         "./flow": "./dist/ui-flow.js",
         "./modal": "./dist/ui-modal.js",
