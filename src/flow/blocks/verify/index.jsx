@@ -5,7 +5,7 @@ import './index.scss';
 const Verify = props => {
     const baseClass = 'ui-flow-verify';
 
-    let value = '';
+    props.value = '';
 
     const translation = {
         error: 'Error requesting code',
