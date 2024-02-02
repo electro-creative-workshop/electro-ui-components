@@ -5,8 +5,6 @@ import './index.scss';
 const Verify = props => {
     const baseClass = 'ui-flow-verify';
 
-    props.value = '';
-
     const translation = {
         error: 'Error requesting code',
         instructions: 'Check your email for a 4-digit confirmation code.',
@@ -27,6 +25,8 @@ const Verify = props => {
     }, []);
 
     const change = () => {
+        let value = '';
+
         inputs.forEach(input => {
             value += input.current.value;
         });
